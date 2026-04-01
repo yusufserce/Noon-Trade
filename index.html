@@ -396,8 +396,8 @@ async function init() {
   updateBanner();
 
   // Always try public GitHub first
-  const publicUser = GH.user || 'yusufserce';
-  const publicRepo = GH.repo || 'Noon-Trade';
+  const publicUser = GH.user || 'yusufnoon';
+  const publicRepo = GH.repo || 'Noon';
   setSyncDot('saving');
   try {
     const publicUrl = `https://api.github.com/repos/${publicUser}/${publicRepo}/contents/${FILE}`;
