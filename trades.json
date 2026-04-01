@@ -10,5 +10,17 @@
     "before": "https://snipboard.io/ZAW0ru.jpg",
     "after": "",
     "note": "Short bias+FVG dolduktan sonra gelen kırılım ile market short"
+  },
+  {
+    "id": 1775034626351,
+    "date": "2026-03-11",
+    "pair": "BTC",
+    "direction": "LONG",
+    "rr": 4,
+    "risk": "1",
+    "month": "2026-04",
+    "before": "https://snipboard.io/jd6Mqx.jpg",
+    "after": "https://snipboard.io/TDxzYj.jpg",
+    "note": "Bullish flow + ara bölgede oluşan likidite alanı sniper entry"
   }
 ]
