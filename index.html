@@ -321,7 +321,7 @@ async function ghLoad() {
   if(r.status === 404) { return []; }
   if(!r.ok) throw new Error('GitHub fetch failed');
   const data = await r.json();
-  const decoded = JSON.parse(atob(data.content.replace(/\n/g,'')));
+  const decoded = JSON.parse(decodeURIComponent(Array.from(atob(data.content.replace(/\n/g,''))).map(c=>'%'+c.charCodeAt(0).toString(16).padStart(2,'0')).join('')));
   return decoded;
 }
 
@@ -335,7 +335,7 @@ async function ghSave(data) {
 
   const body = {
     message: `Update trades — ${new Date().toISOString().slice(0,10)}`,
-    content: btoa(unescape(encodeURIComponent(JSON.stringify(data, null, 2)))),
+    content: btoa(encodeURIComponent(JSON.stringify(data, null, 2)).replace(/%([0-9A-F]{2})/g, (m,p1)=>String.fromCharCode('0x'+p1))),
     ...(sha ? { sha } : {})
   };
   const r = await fetch(apiBase(), { method: 'PUT', headers: headers(), body: JSON.stringify(body) });
