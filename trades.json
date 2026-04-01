@@ -1,1 +1,26 @@
-[]
+[
+  {
+    "id": 1774976455804,
+    "date": "2026-03-11",
+    "pair": "BTC",
+    "direction": "LONG",
+    "rr": 4,
+    "risk": "1",
+    "month": "2026-03",
+    "before": "https://snipboard.io/jd6Mqx.jpg",
+    "after": "https://snipboard.io/TDxzYj.jpg",
+    "note": ""
+  },
+  {
+    "id": 1775033102000,
+    "date": "2026-03-01",
+    "pair": "AAVE",
+    "direction": "SHORT",
+    "rr": -1,
+    "risk": "1",
+    "month": "2026-04",
+    "before": "https://snipboard.io/ZAW0ru.jpg",
+    "after": "",
+    "note": "Short bias + FVG dolduran fiyatta LTF de kırılım sonrası market short."
+  }
+]
