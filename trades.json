@@ -34,5 +34,17 @@
     "before": "https://snipboard.io/7fMoVi.jpg",
     "after": "https://snipboard.io/fvJh71.jpg",
     "note": "Bullish Flow + ara bölgede oluşan likidite alanı sniper entry"
+  },
+  {
+    "id": 1775035638311,
+    "date": "2026-03-14",
+    "pair": "PEOPLE",
+    "direction": "SHORT",
+    "rr": 3.5,
+    "risk": "1",
+    "month": "2026-04",
+    "before": "https://snipboard.io/csJLHU.jpg",
+    "after": "",
+    "note": "Setup 5R'a gitti ama kar alınarak ilerlendi ve 3,5R elde edildi."
   }
 ]
