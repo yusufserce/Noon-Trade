@@ -146,6 +146,8 @@ tbody tr:hover td{background:var(--bg)}
 .mi-info strong{color:var(--text);font-weight:600}
 .del{font-size:11px;font-weight:500;padding:3px 9px;border:1px solid var(--border2);border-radius:4px;background:transparent;color:var(--text3);cursor:pointer;transition:all .1s}
 .del:hover{border-color:var(--red-bd);color:var(--red);background:var(--red-bg)}
+.edit-btn{font-size:11px;font-weight:500;padding:3px 9px;border:1px solid var(--border2);border-radius:4px;background:transparent;color:var(--text2);cursor:pointer;transition:all .1s}
+.edit-btn:hover{border-color:var(--blue);color:var(--blue);background:#eff6ff}
 #login-form{display:flex;flex-direction:column;gap:14px}
 
 /* MOBILE */
@@ -289,6 +291,7 @@ const FILE = 'trades.json';
 // ── STATE ────────────────────────────────────────────────
 let trades = [], activeMonth = 'all', direction = 'LONG', authed = false;
 let GH = { user: '', repo: '', token: '' };
+let editingId = null;
 
 // ── LOCAL FALLBACK ───────────────────────────────────────
 function lsave() { try { localStorage.setItem('nt_trades', JSON.stringify(trades)); } catch(e){} }
@@ -432,7 +435,15 @@ async function addTrade() {
 
   if(!date||!pair||isNaN(rr)) { msg.className='fmsg err'; msg.textContent='Tarih, parite ve R zorunlu.'; return; }
 
-  trades.push({ id: Date.now(), date, pair, direction, rr, risk, month: month||date.slice(0,7), before, after, note });
+  if(editingId) {
+    const idx = trades.findIndex(x=>x.id===editingId);
+    if(idx>-1) trades[idx] = { id:editingId, date, pair, direction, rr, risk, month: month||date.slice(0,7), before, after, note };
+    editingId = null;
+    document.getElementById('add-btn').textContent = 'Trade Ekle';
+    document.getElementById('add-btn').style.background = '';
+  } else {
+    trades.push({ id: Date.now(), date, pair, direction, rr, risk, month: month||date.slice(0,7), before, after, note });
+  }
   lsave();
 
   ['f-pair','f-rr','f-risk','f-before','f-after','f-note'].forEach(id=>document.getElementById(id).value='');
@@ -538,7 +549,7 @@ function renderMl() {
   const el=document.getElementById('ml');
   const s=[...trades].sort((a,b)=>new Date(b.date)-new Date(a.date));
   if(!s.length) { el.innerHTML='<div style="font-size:12px;color:var(--text3);padding:6px 0">Henüz trade yok.</div>'; return; }
-  el.innerHTML=s.map(t=>`<div class="mi"><div class="mi-info"><strong>${t.pair}</strong> · ${t.direction} · ${t.rr>0?'+':''}${t.rr}R · ${t.date}</div><button class="del" onclick="deleteTrade(${t.id})">Sil</button></div>`).join('');
+  el.innerHTML=s.map(t=>`<div class="mi"><div class="mi-info"><strong>${t.pair}</strong> · ${t.direction} · ${t.rr>0?'+':''}${t.rr}R · ${t.date}</div><div style="display:flex;gap:6px"><button class="edit-btn" onclick="editTrade(${t.id})">Düzenle</button><button class="del" onclick="deleteTrade(${t.id})">Sil</button></div></div>`).join('');
 }
 
 // ── IMAGE MODAL ───────────────────────────────────────────
