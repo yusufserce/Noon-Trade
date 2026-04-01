@@ -420,6 +420,27 @@ function selDir(d) {
   document.getElementById('d-short').className = 'dir-opt short' + (d==='SHORT'?' sel':'');
 }
 
+// ── EDIT TRADE ───────────────────────────────────────────────
+function editTrade(id) {
+  const t = trades.find(x=>x.id===id);
+  if(!t) return;
+  editingId = id;
+  document.getElementById('f-date').value = t.date;
+  document.getElementById('f-pair').value = t.pair;
+  document.getElementById('f-rr').value = t.rr;
+  document.getElementById('f-risk').value = t.risk||'';
+  document.getElementById('f-month').value = t.month||t.date.slice(0,7);
+  document.getElementById('f-before').value = t.before||'';
+  document.getElementById('f-after').value = t.after||'';
+  document.getElementById('f-note').value = t.note||'';
+  selDir(t.direction);
+  document.getElementById('add-btn').textContent = 'Güncelle';
+  document.getElementById('add-btn').style.background = 'var(--blue)';
+  document.getElementById('add-btn').style.color = '#fff';
+  document.getElementById('fmsg').textContent = '';
+  document.getElementById('add-btn').scrollIntoView({behavior:'smooth'});
+}
+
 // ── ADD TRADE ────────────────────────────────────────────
 async function addTrade() {
   const date   = document.getElementById('f-date').value;
